@@ -2,7 +2,7 @@ import { test, expect, Page } from '@playwright/test';
 import { login } from '../auth/creds';
 import { agencies_CRUD } from '../actions/agencies_CRUD';
 
-test.setTimeout(1200000);
+test.setTimeout(70000);
 
 
 
