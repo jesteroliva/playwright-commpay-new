@@ -21,7 +21,7 @@ jobs:
 
       - run: npx playwright install --with-deps
 
-      - run: npx playwright test --reporter=list
+      - run: npx playwright test --headed --reporter=list
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
