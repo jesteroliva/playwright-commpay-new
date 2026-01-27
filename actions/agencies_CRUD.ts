@@ -31,4 +31,5 @@ export async function agencies_CRUD({ page, context }: { page: Page; context: Br
   await expect(page2.getByRole('cell', { name: 'TEST QA AGENCY 123'})).not.toBeVisible();
   await context.tracing.stop({ path: 'traceAgencies.zip' });
   await page.close();
+  await page2.close();
 }

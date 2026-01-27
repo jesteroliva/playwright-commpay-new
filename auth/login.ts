@@ -1,7 +1,11 @@
 import  {Page} from 'playwright';
 
 export async function login({ page }: { page: Page }){
-  await page.goto('https://commpay-dev.commtpa.com/login');
+ const devsite = 'https://commpay-dev.commtpa.com/login';
+ const stagingsite = 'https://commpay-staging.commtpa.com/login';
+ const prodsite = 'https://commpay.commtpa.com/login';
+
+  await page.goto(devsite);
   const page1Promise = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'Logo Sign in with LTC Account' }).click();
   const page1 = await page1Promise;
