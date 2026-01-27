@@ -1,5 +1,5 @@
 import { test, expect} from '@playwright/test';
-import { login } from '../auth/creds';
+import { login } from '../auth/login';
 import type { Page, BrowserContext } from '@playwright/test';
 
 
