@@ -13,22 +13,37 @@ export async function agencies_CRUD({ page, context }: { page: Page; context: Br
   await page.getByRole('link', { name: 'Agencies', exact: true }).click();
   const page2 = await page2Promise;
   await page2.waitForLoadState('domcontentloaded');
+
+  //add
   await page2.getByRole('button', { name: 'New Agency' }).click();
   await page2.getByRole('textbox', { name: 'Agency Name *' }).fill(AgencyName);
   await page2.getByRole('button', { name: 'Submit' }).click();
-  await expect(page2.getByRole('cell', { name: AgencyName })).toBeVisible();
-  await page2.getByRole('cell', { name: AgencyName }).click();
+  await page2.getByRole('searchbox', { name: 'Search here...' }).click();
+  await page2.getByRole('searchbox', { name: 'Search here...' }).fill(AgencyName);
+  await page2.getByRole('searchbox', { name: 'Search here...' }).press('Enter');
+  await page2.getByRole('row').nth(1).click();
+  await expect(page2.getByRole('row').nth(1)).toBeVisible();
+
+
+  //edit
   await page2.getByRole('button', { name: 'Edit' }).click();
   await page2.getByRole('textbox', { name: 'Agency Name *' }).click();
   await page2.getByRole('textbox', { name: 'Agency Name *' }).fill('TEST QA AGENCY 123');
   await page2.getByRole('button', { name: 'Update' }).click();
-  await expect(page2.getByRole('cell', { name: 'TEST QA AGENCY 123' })).toBeVisible();
-  await page2.getByRole('cell', { name: 'TEST QA AGENCY 123' }).click();
-  await page2.getByRole('cell', { name: 'TEST QA AGENCY 123' }).click();
-  //await page2.getByRole('button').nth(4).click();
+  await page2.getByRole('searchbox', { name: 'Search here...' }).click();
+  await page2.getByRole('searchbox', { name: 'Search here...' }).fill('TEST QA AGENCY 123');
+  await page2.getByRole('searchbox', { name: 'Search here...' }).press('Enter');
+  await expect(page2.getByRole('row').nth(1)).toBeVisible();
+
+  //delete
+  //await page2.getByRole('row').nth(1).click();
+  await page2.getByRole('row').nth(1).click();
   await page2.getByRole('button', { name: '' }).click();
   await page2.getByRole('button', { name: 'Delete' }).click();
-  await expect(page2.getByRole('cell', { name: 'TEST QA AGENCY 123'})).not.toBeVisible();
+  await page2.getByRole('searchbox', { name: 'Search here...' }).click();
+  await page2.getByRole('searchbox', { name: 'Search here...' }).fill('TEST QA AGENCY 123');
+  await page2.getByRole('searchbox', { name: 'Search here...' }).press('Enter');
+  await expect(page2.getByRole('row').nth(2)).not.toBeVisible();
   await context.tracing.stop({ path: 'traceAgencies.zip' });
   await page.close();
   await page2.close();

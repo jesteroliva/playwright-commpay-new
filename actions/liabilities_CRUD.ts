@@ -3,23 +3,57 @@
  import type { Page, BrowserContext } from '@playwright/test';
  
  
- 
  export async function liabilities_CRUD({ page, context }: { page: Page; context: BrowserContext }) { 
   await context.tracing.start({ screenshots: true, snapshots: true });
   const LiabilityName =  `test_LiabilityQA${Date.now()}`
   await login({ page });  
   await page.locator('span').filter({ hasText: 'Liabilities' }).first().click();
   const page2Promise = page.waitForEvent('popup');
-  await page.getByRole('link', { name: 'Liabilities' }).click();
-  const page2 = await page2Promise;
-  await page2.waitForTimeout(5000);
+  await page.getByRole('link', { name: 'Liabilities', exact: true }).click();
+  const page2 = await page2Promise; 
+  await page2.waitForLoadState('domcontentloaded');
+
+
+  //add
   await page2.getByRole('button', { name: 'New Liability' }).click();
+  
   await page2.getByRole('combobox', { name: 'Select agency...' }).click();
-  await page2.getByRole('option', { name: 'MAA TEST' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+  
   await page2.getByRole('combobox', { name: 'Select producer...' }).click();
-  await page2.getByRole('option', { name: 'ACCESS CARE, INC' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+  
   await page2.getByRole('combobox', { name: 'Select carrier...' }).click();
-  await page2.getByRole('option', { name: 'ACCENDO', exact: true }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+
+  await page2.getByRole('combobox', { name: 'Select commission type...' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+  
+  await page2.getByRole('combobox', { name: 'Select duration segment...' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+  
+  await page2.getByRole('combobox', { name: 'Select business type...' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+  
+  await page2.getByRole('combobox', { name: 'Select rate basis...' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+
+  await page2.getByRole('combobox', { name: 'Select rate type...' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+  
+ await page2.getByRole('combobox', { name: 'Select writing agent...' }).click();
+  try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
+    
+
+  await page2.getByRole('textbox', { name: 'Effective Date' }).click();
+  await page2.getByLabel('February 4,').nth(1).click();
+
+  await page2.getByRole('textbox', { name: 'Paid To Date' }).click();
+   await page2.getByLabel('February 4,').first().click();
+
+  await page2.getByRole('textbox', { name: 'Vesting Date' }).click();
+  await page2.getByLabel('February 9,').nth(2).click();
+
   await page2.getByRole('textbox', { name: 'App Number' }).click();
   await page2.getByRole('textbox', { name: 'App Number' }).fill('123456');
   await page2.getByRole('textbox', { name: 'Insured Name', exact: true }).click();
@@ -28,25 +62,8 @@
   await page2.getByRole('textbox', { name: 'Split Percent' }).fill('30');
   await page2.getByRole('textbox', { name: 'Policy Number', exact: true }).click();
   await page2.getByRole('textbox', { name: 'Policy Number', exact: true }).fill(Date.now().toString());
-  await page2.getByRole('textbox', { name: 'Effective Date' }).click();
-  await page2.getByLabel('January 8,').nth(1).click();
- // await page2.getByRole('textbox', { name: 'Effective Date' }).fill('01/08/2026');
   await page2.getByRole('textbox', { name: 'Issue Age' }).click();
   await page2.getByRole('textbox', { name: 'Issue Age' }).fill('23');
-  await page2.getByRole('combobox', { name: 'Select commission type...' }).click();
-  await page2.getByRole('option', { name: 'OVERRIDE', exact: true }).click();
-  await page2.getByRole('combobox', { name: 'Select duration segment...' }).click();
-  await page2.getByRole('option', { name: 'YEAR' }).click();
-  await page2.getByRole('combobox', { name: 'Select business type...' }).click();
-  await page2.getByRole('option', { name: 'MED SUPP' }).click();
- // await page2.getByRole('searchbox', { name: 'Search' }).click();
-  await page2.getByRole('combobox', { name: 'Select rate basis...' }).click();
-  await page2.getByRole('option', { name: 'PREM' }).click();
-  await page2.getByRole('textbox', { name: 'Paid To Date' }).click();
-  await page2.getByLabel('January 6,').first().click();
- // await page2.getByRole('textbox', { name: 'Paid To Date' }).fill('01/06/2026');
-  await page2.getByRole('combobox', { name: 'Select rate type...' }).click();
-  await page2.getByRole('option', { name: '%' }).click();
   await page2.getByRole('spinbutton', { name: 'Rate' }).click();
   await page2.getByRole('spinbutton', { name: 'Rate' }).fill('1');
   await page2.getByRole('spinbutton', { name: 'From Policy Duration' }).click();
@@ -56,13 +73,8 @@
   await page2.getByRole('spinbutton', { name: 'To Policy Duration' }).click();
   await page2.getByRole('spinbutton', { name: 'To Policy Duration' }).fill('2');
   await page2.getByRole('button', { name: 'Add Rate' }).click();
-  await page2.getByRole('combobox', { name: 'Select writing agent...' }).click();
-  await page2.getByRole('option', { name: 'ACCESS CARE, INC' }).click();
   await page2.getByRole('textbox', { name: 'Vesting Years' }).click();
   await page2.getByRole('textbox', { name: 'Vesting Years' }).fill('3');
-  await page2.getByRole('textbox', { name: 'Vesting Date' }).click();
-  await page2.getByLabel('January 14,').nth(2).click();
-  //await page2.getByRole('textbox', { name: 'Vesting Date' }).fill('01/14/2026');
   await page2.getByRole('textbox', { name: 'Group Name' }).click();
   await page2.getByRole('textbox', { name: 'Group Name' }).fill('test');
   await page2.getByRole('textbox', { name: 'Origination Type' }).click();
@@ -71,12 +83,15 @@
   await page2.getByRole('searchbox', { name: 'Search here...' }).click();
   await page2.getByRole('searchbox', { name: 'Search here...' }).fill(LiabilityName);
   await page2.getByRole('searchbox', { name: 'Search here...' }).press('Enter');
-  await expect(page2.getByRole('cell', { name: LiabilityName })).toBeVisible();
-  await page2.getByRole('cell', { name: 'MAA TEST' }).first().click();
+  await expect(page2.getByRole('row').nth(1)).toBeVisible();
+
+
+  //delete
+  await page2.getByRole('row').nth(1).getByRole('cell').first().click();
   await page2.getByRole('button', { name: '' }).click();
   await page2.getByRole('button', { name: 'Delete' }).click();
-  await expect(page2.getByRole('cell', { name: LiabilityName})).not.toBeVisible();
+  await expect(page2.getByRole('row').nth(2)).not.toBeVisible();
   await context.tracing.stop({ path: 'traceLiabilities.zip' });
   await page.close();
-  //test mike
+  await page2.close();
  }

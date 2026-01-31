@@ -22,7 +22,7 @@ test('PAYCOMM - AGENCIES', async ({ page, context }) => {
 
 });
 
-test ('PAYCOMM CRUD - LIABILITIES', async ({ page, context }) => {
+test('PAYCOMM CRUD - LIABILITIES', async ({ page, context }) => {
  await liabilities_CRUD({ page, context})
 });
 

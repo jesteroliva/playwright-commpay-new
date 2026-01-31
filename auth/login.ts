@@ -5,7 +5,7 @@ export async function login({ page }: { page: Page }){
  const stagingsite = 'https://commpay-staging.commtpa.com/login';
  const prodsite = 'https://commpay.commtpa.com/login';
 
-  await page.goto(devsite);
+  await page.goto(stagingsite);
   const page1Promise = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'Logo Sign in with LTC Account' }).click();
   const page1 = await page1Promise;
@@ -14,6 +14,6 @@ export async function login({ page }: { page: Page }){
   await page1.getByRole('textbox', { name: 'Password' }).click();
   await page1.getByRole('textbox', { name: 'Password' }).fill(process.env.PASSWORD!);
   await page1.getByRole('button', { name: 'Log in' }).click();
-  await page.goto('https://commpay-dev.commtpa.com/dashboard');
-  await page.getByRole('link', { name: 'Manage LION Client' }).click();
+  await page.goto(stagingsite);
+  await page.getByRole('link', { name: 'Manage Lion Client' }).click();
 }
