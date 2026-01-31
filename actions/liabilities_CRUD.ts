@@ -8,11 +8,11 @@
   const LiabilityName =  `test_LiabilityQA${Date.now()}`
   await login({ page });  
   await page.locator('span').filter({ hasText: 'Liabilities' }).first().click();
+  await page.getByRole('link', { name: 'Liabilities', exact: true }).waitFor({ state: 'visible' });
   const page2Promise = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'Liabilities', exact: true }).click();
-  const page2 = await page2Promise; 
+  const page2 = await page2Promise;
   await page2.waitForLoadState('domcontentloaded');
-
 
   //add
   await page2.getByRole('button', { name: 'New Liability' }).click();

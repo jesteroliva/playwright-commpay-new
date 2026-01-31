@@ -53,6 +53,7 @@ await page2.getByRole('textbox', { name: 'Description *' }).fill('TEST12345');
 await page2.getByRole('button', { name: 'Save Changes' }).click();
 await page2.getByRole('searchbox', { name: 'Search here...' }).click();
 await page2.getByRole('searchbox', { name: 'Search here...' }).fill('TEST12345');
+await page2.waitForTimeout(4000);
 await page2.getByRole('searchbox', { name: 'Search here...' }).press('Enter');
 await expect(page2.getByRole('row').nth(1)).toBeVisible(); //assert if EDIT successful
 

@@ -8,9 +8,10 @@ export async function garnishments_CRUD({ page, context }: { page: Page; context
   const GarnishmentName =  `test_Garnishment${Date.now()}`
   await login({ page });
   await page.locator('span').filter({ hasText: 'Garnishments' }).first().click();
+  await page.getByRole('link', { name: 'Garnishments', exact: true }).waitFor({ state: 'visible' });
   const page2Promise = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'Garnishments', exact: true }).click();
-  const page2 = await page2Promise; 
+  const page2 = await page2Promise;
   await page2.waitForLoadState('domcontentloaded');
 
   //add
@@ -49,7 +50,7 @@ export async function garnishments_CRUD({ page, context }: { page: Page; context
 
     await page2.getByRole('combobox', { name: 'Select producer...' }).click();
     try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
-    
+
     await page2.getByRole('combobox', { name: 'Select garnish rollover...' }).click();
     try { await page2.getByRole('option').first().click(); } catch { await page2.waitForTimeout(2000); }
     
