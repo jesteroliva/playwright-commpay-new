@@ -69,9 +69,19 @@ await expect(page2.getByRole('row').nth(1)).toBeVisible();
 await test.step('DELETE BENEFICIARY', async () => {
 //await page2.getByRole('row').nth(1).click(); 
 //await page2.getByRole('tab', { name: 'General' }).click();
-await page2.getByRole('row').nth(1).click();
-await page2.getByRole('button', { name: '' }).click();
-await page2.getByRole('button', { name: 'Delete' }).click();
+const row = page2.getByRole('row').nth(1);
+const trashBtn = page2.getByRole('button', { name: '' });
+const deleteBtn = page2.getByRole('button', { name: 'Delete' });
+
+// click row until trash button shows (handles selected/unselected state)
+for (let i = 0; i < 3; i++) {
+  if (await trashBtn.isVisible()) break;
+  await row.click();
+}
+
+// click trash and confirm delete
+await trashBtn.click();
+await deleteBtn.click();
 await test.step('Verify deleted beneficiary is not visible', async () => {
 await expect(page2.getByRole('row').nth(2)).not.toBeVisible();
 });
