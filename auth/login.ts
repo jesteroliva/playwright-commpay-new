@@ -15,5 +15,6 @@ export async function login({ page }: { page: Page }){
   await page1.getByRole('textbox', { name: 'Password' }).fill(process.env.PASSWORD!);
   await page1.getByRole('button', { name: 'Log in' }).click();
   await page.goto(stagingsite);
-  await page.getByRole('link', { name: 'Manage Lion Client' }).click();
+  await page.getByRole('link', { name: 'Manage PHS Client' }).click();
+  await page.context().storageState({ path: 'auth-agency-sales.json' });
 }
