@@ -74,10 +74,16 @@ await searchBox.press('Enter');
 await page2.waitForTimeout(5000);
 await test.step('DELETE BENEFICIARY', async () => {
 //await page2.waitForTimeout(500); // Wait for previous operations to settle
-await page2.getByRole('row').nth(1).click(); 
-//await page2.getByRole('tab', { name: 'General' }).click();
-//await page2.getByRole('row').nth(1).click(); 
-await page2.getByRole('button', { name: '' }).click();
+const deleteButton = page2.getByRole('button', { name: '' });
+const isClickable = await deleteButton.isVisible().catch(() => false) && await deleteButton.isEnabled().catch(() => false);
+
+if (isClickable) {
+  await deleteButton.click();
+} else {
+  await page2.getByRole('row').nth(1).click();
+  await deleteButton.click();
+}
+
 await page2.getByRole('button', { name: 'Delete' }).click();
 await test.step('Verify deleted beneficiary is not visible', async () => {
 await expect(page2.getByRole('row').nth(2)).not.toBeVisible();
