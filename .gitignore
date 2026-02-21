@@ -4,4 +4,4 @@ test-results
 .env
 *.zip
 auth-commpay-session.json
-auth.json
+commpay-session.json
