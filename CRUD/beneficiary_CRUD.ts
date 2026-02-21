@@ -67,9 +67,9 @@ await expect(page2.getByRole('row').nth(1)).toBeVisible();
 
   //DELETE BENEFICIARY
 await test.step('DELETE BENEFICIARY', async () => {
-//await page2.getByRole('row').nth(1).click(); 
-//await page2.getByRole('tab', { name: 'General' }).click();
 await page2.getByRole('row').nth(1).click(); 
+//await page2.getByRole('tab', { name: 'General' }).click();
+//await page2.getByRole('row').nth(1).click(); 
 await page2.getByRole('button', { name: '' }).click();
 await page2.getByRole('button', { name: 'Delete' }).click();
 await test.step('Verify deleted beneficiary is not visible', async () => {
