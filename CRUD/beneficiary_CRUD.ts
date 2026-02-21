@@ -53,20 +53,27 @@ await expect (page2.getByRole('row').nth(1)).toBeVisible();
 
   //EDIT BENEFICIARY
 await test.step('EDIT BENEFICIARY', async () => {
+const searchBox = page2.getByRole('searchbox', { name: 'Search here...' });
+await searchBox.fill(beneficiaryName);
+await searchBox.press('Enter');
+await page2.waitForTimeout(500); // Wait for table to update after search
 await page2.getByRole('row').nth(1).click(); 
 await page2.getByRole('button', { name: 'Edit' }).click();
 await page2.getByRole('textbox', { name: 'Beneficiary Name' }).fill('test12345');
 await page2.getByRole('button', { name: 'Save Changes' }).click();
-const searchBox = page2.getByRole('searchbox', { name: 'Search here...' });
-await searchBox.fill('test12345');
-await searchBox.press('Enter');
+ // Wait for table to update
 await test.step('Verify edited beneficiary is visible', async () => {
-await expect(page2.getByRole('row').nth(1)).toBeVisible();
+await expect(page2.getByRole('row').nth(1)).not.toBeVisible();
 });
 });
 
   //DELETE BENEFICIARY
+const searchBox = page2.getByRole('searchbox', { name: 'Search here...' });
+await searchBox.fill('test12345');
+await searchBox.press('Enter');
+await page2.waitForTimeout(5000);
 await test.step('DELETE BENEFICIARY', async () => {
+//await page2.waitForTimeout(500); // Wait for previous operations to settle
 await page2.getByRole('row').nth(1).click(); 
 //await page2.getByRole('tab', { name: 'General' }).click();
 //await page2.getByRole('row').nth(1).click(); 

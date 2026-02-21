@@ -41,8 +41,8 @@ export async function agencies_CRUD({ page, context }: { page: Page; context: Br
   });
 
   await test.step('DELETE AGENCY', async () => {
-  await page2.getByRole('row').nth(1).click();
-  await page2.getByRole('row').nth(1).click();
+  //await page2.getByRole('row').nth(1).click();
+  //await page2.getByRole('row').nth(1).click();
   await page2.getByRole('button', { name: '' }).click();
   await page2.getByRole('button', { name: 'Delete' }).click();
   await searchBox.fill('TEST QA AGENCY 123');
