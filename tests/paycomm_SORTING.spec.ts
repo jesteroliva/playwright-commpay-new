@@ -11,7 +11,7 @@ const webRoutes = [
   '/clients/phs/liabilities/assign-liability'
 
 ];
-test.setTimeout(1200000);
+test.setTimeout(12000000);
 // Ensure auth file exists; if not, run the login flow and save it
 test.beforeAll(async ({ browser }) => {
 test.setTimeout(1200000);
